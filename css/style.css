@@ -1,0 +1,213 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #game {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #08090d;
+  color: #f1f1f1;
+  font-family: Arial, "Noto Sans KR", sans-serif;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+button {
+  border: 1px solid #a64b4b;
+  background: #651f27;
+  color: white;
+  padding: 14px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:active {
+  background: #a3333d;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(ellipse at center, #242630a8, #030407f5);
+}
+
+.panel {
+  width: min(520px, 100%);
+  padding: 30px 24px;
+  text-align: center;
+  border: 1px solid #5b5b65;
+  background: #0a0b10ed;
+  box-shadow: 0 0 60px #000;
+}
+
+.panel h1 {
+  font-size: clamp(30px, 7vw, 52px);
+  letter-spacing: 3px;
+  margin: 12px 0;
+}
+
+.panel h1 span {
+  color: #c34c56;
+}
+
+.eyebrow {
+  color: #c45b63;
+  letter-spacing: 3px;
+  font-size: 11px;
+}
+
+.sub, .help {
+  color: #9c9da8;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+.panel button {
+  margin: 18px 0;
+  min-width: 180px;
+}
+
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  text-shadow: 0 2px 4px black;
+}
+
+.hud-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+  font-size: 13px;
+  color: #ddd;
+}
+
+#message {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  width: 90%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #ddd;
+  font-size: 15px;
+}
+
+#crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffffa0;
+  font-size: 20px;
+}
+
+#prompt {
+  position: absolute;
+  top: 56%;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+}
+
+#objective {
+  position: absolute;
+  left: 16px;
+  bottom: 18px;
+  max-width: 70%;
+  color: #dedee0;
+  font-size: 12px;
+}
+
+#danger {
+  position: absolute;
+  top: 28%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #ff4545;
+  letter-spacing: 3px;
+  font-weight: bold;
+  animation: pulse 0.7s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+#touchControls {
+  display: none;
+  pointer-events: auto;
+  position: absolute;
+  inset: auto 0 22px;
+  height: 150px;
+}
+
+#joystick {
+  position: absolute;
+  left: 22px;
+  bottom: 0;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  border: 2px solid #ffffff55;
+  background: #ffffff12;
+  touch-action: none;
+}
+
+#stick {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  left: 35px;
+  top: 35px;
+  border-radius: 50%;
+  background: #d9d9d988;
+}
+
+#interactBtn {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  min-width: 100px;
+  padding: 14px 12px;
+  font-size: 13px;
+}
+
+@media (pointer: coarse), (max-width: 700px) {
+  #touchControls {
+    display: block;
+  }
+
+  .hud-top {
+    padding: 12px;
+  }
+
+  #objective {
+    bottom: 180px;
+  }
+
+  .panel {
+    padding: 24px 16px;
+  }
+}
