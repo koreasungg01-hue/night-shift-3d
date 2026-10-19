@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#08090d">
+  <title>NIGHT SHIFT 3D</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="game"></div>
+
+  <div id="menu" class="overlay">
+    <div class="panel">
+      <p class="eyebrow">NIGHT DUTY · 03:00 AM</p>
+      <h1>NIGHT SHIFT <span>3D</span></h1>
+      <p>이 복도는 분명 아까 지나왔던 곳이다.</p>
+      <p class="sub">이상 현상을 확인하고, 반복되는 아파트에서 탈출하라.</p>
+      <button id="startBtn">근무 시작</button>
+      <p class="help">PC: WASD 이동 · 마우스 시점 · E 상호작용</p>
+      <p class="help">태블릿: 화면 왼쪽 이동 · 오른쪽 드래그로 시점 조절</p>
+    </div>
+  </div>
+
+  <div id="hud" class="hidden">
+    <div class="hud-top">
+      <span>야간 근무</span>
+      <span id="loopText">반복 구역 1 / 6</span>
+    </div>
+    <div id="message">복도를 조사하라.</div>
+    <div id="crosshair">+</div>
+    <div id="prompt"></div>
+    <div id="objective">목표: 이상 현상을 찾아 탈출구를 열어라.</div>
+    <div id="touchControls">
+      <div id="joystick"><div id="stick"></div></div>
+      <button id="interactBtn">조사 / 열기</button>
+    </div>
+    <div id="danger" class="hidden">무언가 가까이 있다.</div>
+  </div>
+
+  <div id="endScreen" class="overlay hidden">
+    <div class="panel">
+      <h1 id="endTitle">근무 종료</h1>
+      <p id="endText"></p>
+      <button id="restartBtn">다시 시작</button>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
