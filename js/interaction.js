@@ -10,14 +10,16 @@ export class Interaction {
     this.examined = new Set();
     this.cooldown = 0;
 
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       if (e.code === "KeyE" && !e.repeat) {
         this.interact();
       }
     });
 
-    document.getElementById("interactBtn")
-      .addEventListener("click", () => this.interact());
+    const button = document.getElementById("interactBtn");
+    if (button) {
+      button.addEventListener("click", () => this.interact());
+    }
   }
 
   interact() {
@@ -31,13 +33,22 @@ export class Interaction {
       .normalize();
 
     const ray = new THREE.Raycaster(origin, direction, 0, 3.5);
-    const { doors, exitDoor, anomalyDoor } = this.world.getObjects();
+    const { doors, exitDoor, anomalyDoor } =
+      this.world.getObjects();
 
-    const targets = doors.filter(d => d.visible);
+    const targets = doors.filter((d) => d.visible);
 
-    if (exitDoor.visible) targets.push(exitDoor);
+    if (anomalyDoor && anomalyDoor.visible &&
+        !targets.includes(anomalyDoor)) {
+      targets.push(anomalyDoor);
+    }
+
+    if (exitDoor && exitDoor.visible) {
+      targets.push(exitDoor);
+    }
 
     const hits = ray.intersectObjects(targets, false);
+
     if (!hits.length) {
       this.ui.showMessage("조사할 것이 없다.");
       return;
@@ -72,7 +83,9 @@ export class Interaction {
   update(dt) {
     this.cooldown = Math.max(0, this.cooldown - dt);
 
-    const { doors, exitDoor } = this.world.getObjects();
+    const { doors, exitDoor, anomalyDoor } =
+      this.world.getObjects();
+
     const camera = this.player.camera;
     const origin = camera.position.clone();
     const direction = new THREE.Vector3(0, 0, -1)
@@ -80,9 +93,16 @@ export class Interaction {
       .normalize();
 
     const ray = new THREE.Raycaster(origin, direction, 0, 3.5);
-    const targets = doors.filter(d => d.visible);
+    const targets = doors.filter((d) => d.visible);
 
-    if (exitDoor.visible) targets.push(exitDoor);
+    if (anomalyDoor && anomalyDoor.visible &&
+        !targets.includes(anomalyDoor)) {
+      targets.push(anomalyDoor);
+    }
+
+    if (exitDoor && exitDoor.visible) {
+      targets.push(exitDoor);
+    }
 
     const hit = ray.intersectObjects(targets, false)[0];
 
