@@ -127,13 +127,27 @@ export class World {
     this.anomalyDoor.material = this.materials.anomaly;
   }
 
-  update(player) {
-    // 복도 배경을 일정 간격으로 재배치해 무한 반복처럼 보이게 한다.
-    if (player.position.z < -75) {
-      player.position.z += 100;
-      this.group.position.z += 100;
-      this.loopCount++;
-      this.setAnomaly(this.loopCount);
+ update(player) {
+  // 플레이어만 재배치하고 복도는 그대로 둔다.
+  // 따라서 같은 복도를 반복해서 걷는 효과가 난다.
+  if (player.position.z < -75) {
+    player.position.z += 100;
+    this.loopCount++;
+    this.setAnomaly(this.loopCount);
+  }
+
+  const t = performance.now() / 1000;
+
+  this.lights.forEach((light, i) => {
+    const flicker = Math.sin(t * (3 + i % 4) + i * 2);
+    light.intensity =
+      flicker > 0.94 ? 0.15 : 0.8 + flicker * 0.2;
+  });
+
+  // 5개 구역을 통과하면 고정된 탈출문이 열린다.
+  this.exitDoor.visible = this.loopCount >= 5;
+}
+
     }
 
     // 조명이 불규칙하게 깜빡인다.
