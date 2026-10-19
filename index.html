@@ -55,6 +55,41 @@
     </div>
   </div>
 
-  <script type="module" src="./js/main.js"></script>
+  <script type="module">
+  window.addEventListener("error", (event) => {
+    showError(event.message || "알 수 없는 JavaScript 오류");
+  });
+
+  window.addEventListener("unhandledrejection", (event) => {
+    showError(event.reason?.message || String(event.reason));
+  });
+
+  function showError(message) {
+    let box = document.getElementById("debug-error");
+
+    if (!box) {
+      box = document.createElement("pre");
+      box.id = "debug-error";
+      Object.assign(box.style, {
+        position: "fixed",
+        inset: "10px",
+        zIndex: "999999",
+        padding: "16px",
+        color: "#fff",
+        background: "#650000",
+        whiteSpace: "pre-wrap",
+        overflow: "auto",
+        fontSize: "14px"
+      });
+      document.body.appendChild(box);
+    }
+
+    box.textContent = "게임 실행 오류\n\n" + message;
+  }
+
+  import("./js/main.js").catch((error) => {
+    showError(error.stack || error.message || String(error));
+  });
+</script>
 </body>
 </html>
