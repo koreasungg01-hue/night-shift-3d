@@ -211,3 +211,11 @@ button:active {
     padding: 24px 16px;
   }
 }
+#hud {
+  touch-action: none;
+}
+
+#game,
+#game canvas {
+  touch-action: none;
+  }
